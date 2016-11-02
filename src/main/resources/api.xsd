@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.portlandoregon.gov/api" xmlns:tns="http://www.portlandoregon.gov/api"
+	elementFormDefault="qualified">
+
+	<xs:element name="hql" type="xs:string"/>
+
+	<xs:element name="record">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:set" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute name="idFields" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="set">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:hql" />
+				<xs:element ref="tns:record" />
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="searchable" type="xs:boolean" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="api">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:set" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

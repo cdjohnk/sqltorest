@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api name="rms" 
+xmlns="http://www.portlandoregon.gov/api"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.portlandoregon.gov/api api.xsd">
+	<set name="people" searchable="true">
+		<hql>from People as people</hql>
+		<record idFields="id"/>
+	</set>
+</api>
