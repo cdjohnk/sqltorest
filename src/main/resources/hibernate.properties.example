@@ -1,0 +1,10 @@
+hibernate.connection.driver_class = com.informix.jdbc.IfxDriver 
+hibernate.connection.url = jdbc:informix-sqli://11.11.11.11:1111/dbname:INFORMIXSERVER=server_tcp 
+hibernate.connection.username = testacct 
+hibernate.connection.password = testpwd
+hibernate.default_entity_map = dynamic-map
+hibernate.c3p0.min_size=5
+hibernate.c3p0.max_size=20
+hibernate.c3p0.timeout=1800
+hibernate.c3p0.max_statements=50
+hibernate.dialect = org.hibernate.dialect.InformixDialect
