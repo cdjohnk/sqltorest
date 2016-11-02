@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+<hibernate-mapping>
+   <class
+      entity-name="haircolor"
+      table="ncic_lookup">
+      <id column="ROWID" type="string"/>
+      <property
+         name="code"
+         column="code"
+         type="string"/>
+      <property
+              name="state"
+              column="state"
+              type="string"/>
+      <property
+         name="revision"
+         column="revision"
+         type="string"/>
+      <property
+              name="tab_name"
+              column="tab_name"
+              type="string"/>
+      <property
+              name="translation"
+              column="translation"
+              type="string"/>
+      <property
+              name="prop_type"
+              column="prop_type"
+              type="string"/>
+      <property
+              name="ibr_code"
+              column="ibr_code"
+              type="string"/>
+      <property
+              name="parent_table"
+              column="parent_table"
+              type="string"/>
+   </class>
+</hibernate-mapping>

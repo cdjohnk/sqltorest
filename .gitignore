@@ -1,3 +1,12 @@
 .project
 .classpath
 .settings
+sqltorest.iml
+sqltorest.ipr
+sqltorest.iws
+target/**
+src/main/resources/api.xml
+src/main/resources/api.xml
+src/main/resources/hibernate.properties
+src/main/resources/*.hbm.xml
+src/main/resources/haircolor.hbm.xml

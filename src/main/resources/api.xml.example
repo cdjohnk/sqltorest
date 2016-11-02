@@ -3,8 +3,8 @@
 xmlns="http://www.portlandoregon.gov/api"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.portlandoregon.gov/api api.xsd">
-	<set name="people" searchable="true">
-		<hql>from People as people</hql>
-		<record idFields="id"/>
+	<set name="haircolor" searchable="true">
+		<hql>from haircolor where tab_name = 'hair_color' and state = 'OR'</hql>
+		<record idFields="code"/>
 	</set>
 </api>
