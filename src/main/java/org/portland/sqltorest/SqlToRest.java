@@ -9,7 +9,7 @@ public class SqlToRest {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
 
-        Server jettyServer = new Server(80);
+        Server jettyServer = new Server(8080);
         jettyServer.setHandler(context);
 
         ServletHolder jerseyServlet = context.addServlet(

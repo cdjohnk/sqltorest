@@ -9,3 +9,4 @@ src/main/resources/api.xml
 src/main/resources/api.xml
 src/main/resources/hibernate.properties
 src/main/resources/*.hbm.xml
+/target/

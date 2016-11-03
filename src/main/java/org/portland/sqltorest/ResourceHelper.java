@@ -21,6 +21,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.type.Type;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -36,7 +37,7 @@ public class ResourceHelper {
 				public String apply(ContainerRequestContext containerRequestContext) {
 					StringWriter stringEmp = new StringWriter();
 					try {
-						List result = getResultList(query);
+						List result = getResultList(query, null);
 						
 						ObjectMapper objectMapper = new ObjectMapper();
 						objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -62,7 +63,10 @@ public class ResourceHelper {
 					String id = params.get(idField).get(0);
 					StringWriter stringEmp = new StringWriter();
 					try {
-						List result = getResultList(query + " where " + idField + " = " + id);
+						String clauseTerm = query.indexOf(" where ") == -1 ? " where " : " and ";
+						Map<String, String> parameters = new HashMap<String, String>();
+						parameters.put(idField, id);
+						List result = getResultList(query + clauseTerm + idField + " = :" + idField, parameters);
 						
 						ObjectMapper objectMapper = new ObjectMapper();
 						objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -76,12 +80,19 @@ public class ResourceHelper {
 			});
 	}
 
-	private List getResultList(String queryString) throws IOException {
+	private List getResultList(String queryString, Map<String, String> parameters) throws IOException {
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 
 		Query<Map<String, Object>> query = (Query<Map<String, Object>>) session
 				.createQuery(queryString);
+		if (parameters != null) {
+			for (Entry<String, String> param : parameters.entrySet()) {
+				Type paramType = query.getParameterMetadata().getQueryParameter(param.getKey()).getType();
+				Object typedValue = QueryTypes.convertString(paramType.getClass(), param.getValue());
+				query.setParameter(param.getKey(), typedValue, paramType);
+			}
+		}
 		List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 		for (Iterator<Map<String, Object>> it = query.iterate(); it.hasNext();) {
 			Map<String, Object> row = new HashMap<String, Object>();
