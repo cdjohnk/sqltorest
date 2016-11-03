@@ -37,19 +37,19 @@ Javascript search objects must always include both a terms and orderby object as
 Pagestart and pagesize properties are both optional. If not provided, pagestart defaults to 1. If not provided, pagesize defaults to 25.
 
 As an example, if the above search object were executed against a table named common_names, then the resulting query might look something like this:
-
+<pre>
 SELECT test.name, test.count
 FROM Test as test
 WHEREtest.name LIKE '%:name1%' and
-test.count >= :count2 or
+test.count &gt;= :count2 or
 (test.name LIKE '%:name3%' and
-test.count < :count4)
+test.count &lt; :count4)
 ORDER BY test.name desc, test.count asc
-
+</pre>
 With the pagestart and pagesize properties being handled in code.
 
 Here are the supported search operators:
-
+<pre>
 All Types
 equals - equals
 gt – greater than
@@ -63,11 +63,11 @@ Strings
 startswith – starts with
 endswith – ends with
 contains – contains
-
+</pre>
 Valid formats for date/time values are limited to the following:
-
+<pre>
 YYYY-MM-DD
 YYYY-MM-DD 00:00
 YYYY-MM-DD 00:00:00.000
-
+</pre>
 Note that, while inequality operators (lt, gt, lte, gte) will work for any type, the results they produce will be specific to that type: strings will be selected based on alpha ordering, numbers on numeric ordering, and date/times on time ordering.
