@@ -16,7 +16,7 @@ To support this type of searching, a search defined in JSON can be POSTed to a U
 http://www.apihost.com/api/resources/search
 
 The JSON search object would look like this:
-
+<pre>
 {
 "fields":["test.name","test.count"],
 "terms":[ {"linkage":"and","field":"test.name","operator":"contains","value":"res","id":"1"}, 
@@ -29,7 +29,7 @@ The JSON search object would look like this:
 "pagestart":"1",
 "pagesize":"10"
 }
-
+</pre>
 The fields array is optional. If included, only those fields will be returned. If not included, all fields will be returned.
 
 Javascript search objects must always include both a terms and orderby object as arrays. The arrays may both be empty. If one or more term objects are supplied, each must always have id and linkage properties, and either a nested terms object or field, operator, and value properties. If one or more orderby objects are supplied, they must always have field and direction properties. Field types are NOT specified in the search terms. Nevertheless, not all operators may be used with all field types – in particular, the string operators listed below will only work on strings.
