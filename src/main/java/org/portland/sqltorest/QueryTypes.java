@@ -55,7 +55,7 @@ public enum QueryTypes {
 		Object typedValue = null;
 		for (QueryTypes type : QueryTypes.values()) {
 			if (type.typeClass.equals(typeClass)) {
-				typedValue = type.function.apply(value);
+				typedValue = type.convert(value);
 			}
 		}
 		return typedValue;
