@@ -1,30 +1,23 @@
 package org.portland.sqltorest;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.MediaType;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.glassfish.jersey.process.Inflector;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.ResourceMethod;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.type.Type;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class ResourceHelper {
 	public void addSetPath(Resource.Builder resourceBuilder, String path, final String query) {
@@ -70,7 +63,9 @@ public class ResourceHelper {
 						
 						ObjectMapper objectMapper = new ObjectMapper();
 						objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-						objectMapper.writeValue(stringEmp, result.get(0));
+						if (result.size() > 0) {
+							objectMapper.writeValue(stringEmp, result);
+						}
 					} catch (Throwable e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -93,18 +88,7 @@ public class ResourceHelper {
 				query.setParameter(param.getKey(), typedValue, paramType);
 			}
 		}
-		List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
-		for (Iterator<Map<String, Object>> it = query.iterate(); it.hasNext();) {
-			Map<String, Object> row = new HashMap<String, Object>();
-
-			Set<Entry<String, Object>> set = ((Map<String, Object>) it.next())
-					.entrySet();
-			for (Entry<String, Object> entry : set) {
-				row.put(entry.getKey(), entry.getValue());
-			}
-			rows.add(row);
-			row = null;
-		}
+		List<Map<String, Object>> rows = query.getResultList();
 		tx.commit();
 		session.close();
 		return rows;

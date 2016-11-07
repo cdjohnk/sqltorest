@@ -18,7 +18,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="tns:hql" />
-				<xs:element ref="tns:record" />
+				<xs:element ref="tns:record" minOccurs="0"/>
 			</xs:sequence>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="searchable" type="xs:boolean" use="optional" />

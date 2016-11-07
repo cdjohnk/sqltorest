@@ -37,7 +37,7 @@ public class APIConfig extends ResourceConfig {
 			new ResourceHelper().addSetPath(resourceBuilder, name, query);
 
 			Node recordNode = setNode.getLastChild();
-			final String idField = recordNode.getAttributes().getNamedItem("idFields").getNodeValue();
+			String idField = recordNode.getAttributes().getNamedItem("idFields").getNodeValue();
 			new ResourceHelper().addRecordPath(resourceBuilder, name, query, idField);
 		}
 		
