@@ -35,13 +35,18 @@ public class APIConfig extends ResourceConfig {
 			Node hqlNode = setNode.getFirstChild();
 			String query = hqlNode.getTextContent();
 			new ResourceHelper().addSetPath(resourceBuilder, name, query);
+			
+			//TODO: Map searchable nodes
+			Node searchable = setNode.getAttributes().getNamedItem("searchable");
+			if (searchable != null && searchable.getNodeValue().equals("true")) {
+				new ResourceHelper().addSearchPath(resourceBuilder, name, query);
+			}
 
 			Node recordNode = setNode.getLastChild();
 			String idField = recordNode.getAttributes().getNamedItem("idFields").getNodeValue();
 			new ResourceHelper().addRecordPath(resourceBuilder, name, query, idField);
 		}
 		
-		//TODO: Map searchable nodes
 		//TODO: Map sets under records
 
 		final Resource resource = resourceBuilder.build();

@@ -21,10 +21,10 @@ The JSON search object would look like this:
 <pre>
 {
 "fields":["test.name","test.count"],
-"terms":[ {"linkage":"and","field":"test.name","operator":"contains","value":"res","id":"1"}, 
+"terms":[ {"linkage":"and","field":"test.name","operator":"like","value":"%res%","id":"1"}, 
     {"linkage":"or","field":"test.count","operator":"gte","value":"3", "id":"2"}, 
     {"linkage":"or", "terms": [
-        {"linkage":"and","field":"test.name","operator":"contains","value":"ros","id":"3"},  
+        {"linkage":"and","field":"test.name","operator":"like","value":"ros%","id":"3"},  
         {"linkage":"or","field":"test.count","operator":"lte","value":"3", "id":"4"} ]}],
 "orderby":[ {"field":"test.name","direction":"desc"}, 
     {"field":"test.count","direction":"asc"}],
@@ -62,9 +62,7 @@ empty – no value or null
 notempty – values of greater than zero length
 
 Strings
-startswith – starts with
-endswith – ends with
-contains – contains
+like – string searching - use '%' to match any string. ex: 'Dav%' finds any string beginning with 'Dav'.
 </pre>
 Valid formats for date/time values are limited to the following:
 <pre>

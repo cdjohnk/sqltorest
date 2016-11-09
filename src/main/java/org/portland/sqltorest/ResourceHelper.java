@@ -2,6 +2,8 @@ package org.portland.sqltorest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.process.Inflector;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.ResourceMethod;
@@ -13,6 +15,7 @@ import org.hibernate.type.Type;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +41,40 @@ public class ResourceHelper {
 					} catch (Throwable e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						return null;
 					}
+					return stringEmp.toString();
+				}
+			});
+	}
+
+	public void addSearchPath(Resource.Builder resourceBuilder, String path, final String query) {
+		final Resource.Builder childBuilder = resourceBuilder.addChildResource(path + "/search");
+		final ResourceMethod.Builder methodBuilder = childBuilder.addMethod("POST");
+		methodBuilder.consumes(MediaType.APPLICATION_JSON);
+		methodBuilder.produces(MediaType.APPLICATION_JSON).handledBy(
+			new Inflector<ContainerRequestContext, String>() {
+	
+				@Override
+				public String apply(ContainerRequestContext containerRequestContext) {
+					StringWriter stringEmp = new StringWriter();
+			        if (containerRequestContext.getMediaType().getSubtype().equals("json")) {
+						try {
+							InputStream is = containerRequestContext.getEntityStream();
+							String json = IOUtils.toString(is);
+							SearchParser parser = new SearchParser(query, json);
+							System.out.println(parser.getHQL());
+							List result = getResultList(parser.getHQL(), parser.getParameters());
+							
+							ObjectMapper objectMapper = new ObjectMapper();
+							objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+							objectMapper.writeValue(stringEmp, result);
+						} catch (Throwable e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							return null;
+						}
+			        }
 					return stringEmp.toString();
 				}
 			});
@@ -69,6 +105,7 @@ public class ResourceHelper {
 					} catch (Throwable e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						return null;
 					}
 					return stringEmp.toString();
 				}
@@ -88,6 +125,7 @@ public class ResourceHelper {
 				query.setParameter(param.getKey(), typedValue, paramType);
 			}
 		}
+		System.out.println(query.getQueryString());
 		List<Map<String, Object>> rows = query.getResultList();
 		tx.commit();
 		session.close();

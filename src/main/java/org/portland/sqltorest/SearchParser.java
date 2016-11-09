@@ -84,9 +84,10 @@ public class SearchParser {
 					String field = term.get("field").asText();
 					String jsonOp = term.get("operator").asText();
 					String op = Operators.getValueFor(jsonOp).getHQLOperator();
+					boolean paramRequired = Operators.getValueFor(jsonOp).getRequiresParameter();
 					String id = term.get("id").asText();
 					String param = getParamName(field, id);
-					parameters.put(param.substring(1), term.get("value").asText());
+					if (paramRequired) parameters.put(param.substring(1), term.get("value").asText());
 					where += field + " " + op.replaceAll("\\?", param);
 				}
 				String linkage = i.hasNext() ? " " + term.get("linkage").asText() + "\r\n" : "";

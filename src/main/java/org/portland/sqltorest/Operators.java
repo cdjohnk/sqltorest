@@ -8,9 +8,7 @@ public enum Operators {
     LTE("lte","<= ?", true),
     EMPTY("empty", "IS EMPTY", false),
     NOTEMPTY("notempty", "IS NOT EMPTY", false),
-    STARTSWITH("startswith","LIKE '?%'", true),
-    ENDSWITH("endswith","LIKE '%?'", true),
-    CONTAINS("contains","LIKE '%?%'", true)
+    LIKE("like","LIKE ?", true)
     ;
 
     private final String text;
