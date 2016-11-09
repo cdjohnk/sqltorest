@@ -60,8 +60,8 @@ public class AppTest
 		System.out.println(json);
 		System.out.println(hql);
 		
-		for (Object param : parser.getParameters().entrySet()) {
-			Entry entry = (Entry)param;
+		for (Entry<String, String> param : parser.getParameters().entrySet()) {
+			Entry<String, String> entry = param;
 			System.out.println(entry.getKey() + "," + entry.getValue());
 		}
 		System.out.println("\r\nPage Size: " + parser.getPageSize());

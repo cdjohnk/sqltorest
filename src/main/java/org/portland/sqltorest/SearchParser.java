@@ -3,7 +3,6 @@ package org.portland.sqltorest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -16,7 +15,7 @@ public class SearchParser {
 	private JsonNode search = null;
 	private int pageSize = 25;
 	private int pageStart = 1;
-	private Map parameters = new HashMap();
+	private Map<String, String> parameters = new HashMap<String, String>();
 	
 	public SearchParser(String tables, String jsonSearch) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -39,7 +38,7 @@ public class SearchParser {
 		return hql;
 	}
 	
-	public Map getParameters() {
+	public Map<String, String> getParameters() {
 		return parameters;
 	}
 	
@@ -63,7 +62,7 @@ public class SearchParser {
 		String select = "";
 		if (fields.size() > 0) {
 			select += "SELECT ";
-			for (Iterator i = fields.iterator(); i.hasNext();) {
+			for (Iterator<JsonNode> i = fields.iterator(); i.hasNext();) {
 				select += ((JsonNode)i.next()).asText() + ", ";
 			}
 			select = select.substring(0, select.length()-2) + "\r\n";
@@ -75,7 +74,7 @@ public class SearchParser {
 		String where = "";
 		if (terms.size() > 0) {
 			if(top) where += "\r\nWHERE\r\n";
-			for (Iterator i = terms.iterator(); i.hasNext();) {
+			for (Iterator<JsonNode> i = terms.iterator(); i.hasNext();) {
 				JsonNode term = (JsonNode)i.next();
 				if (term.has("terms")) {
 					where += "(" + parseTerms(term.get("terms"), false) + ") ";
@@ -101,7 +100,7 @@ public class SearchParser {
 		String order = "";
 		if (orderBy.size() > 0) {
 			order += "\r\nORDER BY ";
-			for (Iterator i = orderBy.iterator(); i.hasNext();) {
+			for (Iterator<JsonNode> i = orderBy.iterator(); i.hasNext();) {
 				JsonNode orderTerm = (JsonNode)i.next();
 				order += orderTerm.get("field").asText() + " " + orderTerm.get("direction").asText() + ", ";
 			}

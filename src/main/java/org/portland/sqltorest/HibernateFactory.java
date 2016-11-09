@@ -18,7 +18,6 @@ public class HibernateFactory {
 
 	private static SessionFactory sessionFactory = null;
 	
-	@SuppressWarnings("deprecation")
 	public static SessionFactory getSessionFactory() throws IOException {
 		if (sessionFactory == null) {
 			Configuration config = new Configuration();

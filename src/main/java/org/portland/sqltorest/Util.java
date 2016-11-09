@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 
 public class Util {
 	public String getFile(String fileName) {
-    	StringBuilder result = new StringBuilder("");
-
     	//Get file from resources folder
     	InputStream is = getClass().getResourceAsStream(fileName);
     	String val = "";

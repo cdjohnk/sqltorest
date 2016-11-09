@@ -33,7 +33,7 @@ public class ResourceHelper {
 				public String apply(ContainerRequestContext containerRequestContext) {
 					StringWriter stringEmp = new StringWriter();
 					try {
-						List result = getResultList(query, null);
+						List<Map<String, Object>> result = getResultList(query, null);
 						
 						ObjectMapper objectMapper = new ObjectMapper();
 						objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -64,7 +64,7 @@ public class ResourceHelper {
 							String json = IOUtils.toString(is);
 							SearchParser parser = new SearchParser(query, json);
 							System.out.println(parser.getHQL());
-							List result = getResultList(parser.getHQL(), parser.getParameters());
+							List<Map<String, Object>> result = getResultList(parser.getHQL(), parser.getParameters());
 							
 							ObjectMapper objectMapper = new ObjectMapper();
 							objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -95,7 +95,7 @@ public class ResourceHelper {
 						String clauseTerm = query.indexOf(" where ") == -1 ? " where " : " and ";
 						Map<String, String> parameters = new HashMap<String, String>();
 						parameters.put(idField, id);
-						List result = getResultList(query + clauseTerm + idField + " = :" + idField, parameters);
+						List<Map<String, Object>> result = getResultList(query + clauseTerm + idField + " = :" + idField, parameters);
 						
 						ObjectMapper objectMapper = new ObjectMapper();
 						objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
@@ -112,12 +112,11 @@ public class ResourceHelper {
 			});
 	}
 
-	private List getResultList(String queryString, Map<String, String> parameters) throws IOException {
+	private List<Map<String, Object>> getResultList(String queryString, Map<String, String> parameters) throws IOException {
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 
-		Query<Map<String, Object>> query = (Query<Map<String, Object>>) session
-				.createQuery(queryString);
+		Query<Map<String, Object>> query = (Query<Map<String, Object>>) session.createQuery(queryString);
 		if (parameters != null) {
 			for (Entry<String, String> param : parameters.entrySet()) {
 				Type paramType = query.getParameterMetadata().getQueryParameter(param.getKey()).getType();
