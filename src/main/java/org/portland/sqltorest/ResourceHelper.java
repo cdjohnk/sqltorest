@@ -14,6 +14,7 @@ import org.hibernate.type.Type;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -112,6 +113,7 @@ public class ResourceHelper {
 			});
 	}
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	private List<Map<String, Object>> getResultList(String queryString, Map<String, String> parameters) throws IOException {
 		Session session = HibernateFactory.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();

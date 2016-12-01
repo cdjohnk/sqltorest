@@ -1,10 +1,10 @@
 {
 "fields":["test.name","test.count"],
 "terms":[
-	{"linkage":"and","field":"test.name","operator":"contains","value":"res", "id":"1"},
+	{"linkage":"and","field":"test.name","operator":"like","value":"res", "id":"1"},
 	{"linkage":"or","field":"test.count","operator":"gte","value":"3", "id":"2"},
 	{"linkage":"or", "terms":[
-		{"linkage":"and","field":"test.name","operator":"contains","value":"ros", "id":"3"},
+		{"linkage":"and","field":"test.name","operator":"like","value":"ros", "id":"3"},
 		{"linkage":"or","field":"test.count","operator":"lte","value":"3", "id":"4"}
 	]}
 ],

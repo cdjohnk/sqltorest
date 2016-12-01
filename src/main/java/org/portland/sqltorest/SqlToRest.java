@@ -4,6 +4,13 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+// TODO: Unit testing
+// TODO: Configure H2 Database to go with tests
+// TODO: Documentation
+// TODO: Logging
+// TODO: Finish query options
+// TODO: Repackage: lib dir on classpath, resources dirs on classpath
+
 public class SqlToRest {
     public static void main(String[] args) throws Exception {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

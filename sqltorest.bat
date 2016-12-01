@@ -1,0 +1,1 @@
+java -cp "*;../lib/*;../config/" org.portland.sqltorest.SqlToRest

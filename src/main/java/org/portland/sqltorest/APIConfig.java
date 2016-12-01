@@ -2,7 +2,6 @@ package org.portland.sqltorest;
 
 import java.io.IOException;
 import java.io.StringReader;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,13 +14,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 import org.portland.sqltorest.Util;
 
 public class APIConfig extends ResourceConfig {
 
-	public APIConfig() throws ParserConfigurationException, SAXException,
-			IOException {
+	public APIConfig() throws Exception {
 		Document apiDoc = loadApi();
 		Element root = apiDoc.getDocumentElement();
 
@@ -36,7 +33,7 @@ public class APIConfig extends ResourceConfig {
 			String query = hqlNode.getTextContent();
 			new ResourceHelper().addSetPath(resourceBuilder, name, query);
 			
-			//TODO: Map searchable nodes
+			//Map searchable nodes
 			Node searchable = setNode.getAttributes().getNamedItem("searchable");
 			if (searchable != null && searchable.getNodeValue().equals("true")) {
 				new ResourceHelper().addSearchPath(resourceBuilder, name, query);
@@ -53,7 +50,7 @@ public class APIConfig extends ResourceConfig {
 		registerResources(resource);
 
 	}
-
+	
 	private Document loadApi() throws ParserConfigurationException,
 			SAXException, IOException {
 		String apiXml = new Util().getFile("/api.xml");
