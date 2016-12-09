@@ -34,10 +34,8 @@ public class HibernateFactory {
 class ResourceLoader {
 	List<String> loadResource(String resource) throws IOException {
 		List<String> hbmFiles = new ArrayList<String>();
-		String binPath = System.getProperty("app.path");
-		// TODO: Script should truncate the bin directory, not the program
-		String appPath = binPath.substring(0, binPath.length()-4);
-		System.out.println(appPath);
+		String appPath = System.getProperty("app.path");
+		System.out.println("app.path=" + appPath);
 		File configFile = new File(appPath + resource);
 		File[] listOfFiles = configFile.listFiles();
 

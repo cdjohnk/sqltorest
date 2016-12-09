@@ -9,14 +9,13 @@ import org.eclipse.jetty.servlet.ServletHolder;
 // TODO: Documentation
 // TODO: Logging
 // TODO: Finish query options
-// TODO: Repackage: lib dir on classpath, resources dirs on classpath
 
 public class SqlToRest {
     public static void main(String[] args) throws Exception {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
 
-        Server jettyServer = new Server(8080);
+        Server jettyServer = new Server(8062);
         jettyServer.setHandler(context);
 
         ServletHolder jerseyServlet = context.addServlet(
