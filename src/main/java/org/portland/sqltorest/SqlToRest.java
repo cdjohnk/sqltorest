@@ -8,7 +8,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 // TODO: Configure H2 Database to go with tests
 // TODO: Documentation
 // TODO: Logging
-// TODO: Finish query options
+// TODO: Finish recursive query set options
+// TODO: Authentication
 
 public class SqlToRest {
     public static void main(String[] args) throws Exception {
