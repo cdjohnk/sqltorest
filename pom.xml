@@ -22,6 +22,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.193</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 			<version>9.2.3.v20140905</version>
@@ -66,18 +72,27 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.3.Final</version>
 		</dependency>
-		<!--<dependency> <groupId>com.informix.jdbc</groupId> <artifactId>IfxDriver</artifactId> 
-			<version>1.0</version> </dependency> -->
 		<dependency>
+			<groupId>com.informix.jdbc</groupId>
+			<artifactId>IfxDriver</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!--<dependency>
 			<groupId>com.enigmabridge</groupId>
 			<artifactId>hibernate4-sqlite-dialect</artifactId>
 			<version>0.1.2</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
