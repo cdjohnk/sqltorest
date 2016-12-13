@@ -9,6 +9,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.net.*;
+import java.io.*;
+
 /**
  * Unit test for simple App.
  */
@@ -33,10 +36,37 @@ public class AppTest
         return new TestSuite( AppTest.class );
     }
 
+    public void setUp() throws Exception {
+        super.setUp();
+        InputStream in = SqlToRest.class.getClassLoader().getResourceAsStream("sqltorest.properties");
+        System.getProperties().load(in);
+        in.close();
+    }
+
+    public void testApi() {
+		try {
+			TestServer server = new TestServer();
+            server.start();
+			URL apiUrl = new URL("http://localhost:8062/api/test");
+			URLConnection yc = apiUrl.openConnection();
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(
+							yc.getInputStream()));
+			String inputLine;
+
+			while ((inputLine = in.readLine()) != null)
+				System.out.println(inputLine);
+			in.close();
+			server.stop();
+		}
+		catch (Throwable t) {
+			t.printStackTrace();
+		}
+	}
     /**
      * Rigourous Test :-)
      */
-    public void testApp()
+    public void testParser()
     {
         String json = new Util().getFile("/test.json");
 		String tables = "FROM Test as test";
@@ -68,4 +98,33 @@ public class AppTest
 		System.out.println("Page Start: " + parser.getPageStart());
     	assertTrue( true );
     }
+
+	protected class TestServer implements Runnable {
+
+        public void start() throws InterruptedException {
+            Thread api = new Thread(this);
+            api.start();
+            Thread.sleep(5000);
+        }
+
+        @Override
+		public void run() {
+			try {
+				System.setProperty("app.path", "c:/Users/pbcjohnk/Documents/workspace/sqltorest/src/test/resources");
+				SqlToRest.main(new String[]{});
+			}
+			catch (Throwable t) {
+				t.printStackTrace();
+			}
+		}
+
+		public void stop() {
+			try {
+				SqlToRest.shutdown();
+			}
+			catch (Throwable t) {
+				t.printStackTrace();
+			}
+		}
+	}
 }
