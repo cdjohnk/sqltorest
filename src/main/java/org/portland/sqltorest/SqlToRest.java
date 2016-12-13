@@ -1,5 +1,6 @@
 package org.portland.sqltorest;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -16,9 +17,13 @@ public class SqlToRest {
     private static Server jettyServer = null;
 
     public static void main(String[] args) throws Exception {
-        InputStream in = SqlToRest.class.getClassLoader().getResourceAsStream("sqltorest.properties");
-        System.getProperties().load(in);
-        in.close();
+        InputStream loggingProps = SqlToRest.class.getClassLoader().getResourceAsStream("log4j.properties");
+        PropertyConfigurator.configure(loggingProps);
+        loggingProps.close();
+
+        InputStream appProps = SqlToRest.class.getClassLoader().getResourceAsStream("sqltorest.properties");
+        System.getProperties().load(appProps);
+        appProps.close();
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");

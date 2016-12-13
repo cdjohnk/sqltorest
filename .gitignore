@@ -4,6 +4,7 @@
 *.iml
 *.ipr
 *.iws
+sqltorest.log*
 target/**
 src/main/resources/api.xml
 src/main/resources/api.xml
