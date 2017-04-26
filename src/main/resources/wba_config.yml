@@ -40,7 +40,6 @@ ldapConfiguration:
     - staff
 
 logging:
-
   appenders:
     - type: file
       currentLogFilename: ./logs/wizbangapi.log
