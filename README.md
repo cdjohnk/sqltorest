@@ -1,6 +1,6 @@
 # wizbangapi
 
-This project was previously named 'sqltorest', and its purpose was to bring together Jersey, Jackson, Jetty, and Hibernate and create an integrated sample application as a starting point for quickly standing up Restful API's with authentication, authorization, and logging.
+This project was previously named 'sqltorest', and its purpose was to bring together Jersey, Jackson, Jetty, and Hibernate and create an integrated sample application as a starting point for quickly standing up a database backed Restful API with authentication, authorization, and logging.
 
 As it turns out, Dropwizard (http://www.dropwizard.io/1.1.0/docs/) has already produced an easy to use framework that integrates those libraries, and much more.
 
