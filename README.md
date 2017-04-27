@@ -14,7 +14,7 @@ The configured log format records the logged in user name on every log line, inc
 
 This sample application is configured to work as-is once it is properly configured against an LDAP instance. The current configured database for Hibernate is an H2 database which will be automatically created in the current working directory and automatically populated with the Person entity defined in the /model/entities directory. Hopefully this sample implementation quickly and clearly shows, by example, how to create endpoints and tie them to Hibernate entities.
 
-Once you have an LDAP directory configured and role access on the endpoint methods in PersonDAO updated the way you want it, build the project with Maven. It will create an executable uber jar in the target directory named 'wizbangapi.jar'. You'll find the yaml configuration file 'wba_config.yml' in target/classes. Copy these two files to a directory from which you want to run the application, navigate to that directory, and execute the command:
+Once you have an LDAP directory configured and role access on the endpoint methods in PersonDAO updated the way you want them, build the project with Maven. It will create an executable uber jar in the target directory named 'wizbangapi.jar'. You'll find the yaml configuration file 'wba_config.yml' in target/classes. Copy these two files to a directory from which you want to run the application, navigate to that directory, and execute the command:
 
 <code>java -jar wizbangapi.jar server wba_config.yml</code>
 
