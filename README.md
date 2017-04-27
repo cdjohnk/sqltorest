@@ -18,6 +18,12 @@ Once you have an LDAP directory configured and role access on the endpoint metho
 
 <code>java -jar wizbangapi.jar server wba_config.yml</code>
 
+The server should start and be ready to test. I recommend using Postman (https://www.getpostman.com/) for your API testing. You'll have two get methods available to retrieve either all users or individual users by id. You'll also have a post method available. if you post this JSON:
+
+<code>{"firstName":"John","lastName":"Smith"}</code>
+
+You'll add the person "John Smith" to the test H2 database instance created in the application's working directory.
+
 Once you have the example application configured and running against your LDAP directory, you can:
 
 1. Point the database configuration in wba_config.yml to your own database.
