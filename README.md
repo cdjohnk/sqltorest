@@ -18,4 +18,14 @@ Once you have an LDAP directory configured and role access on the endpoint metho
 
 <code>java -jar wizbangapi.jar server wba_config.yml</code>
 
+Once you have the example application configured and running against your LDAP directory, you can:
+
+1. Point the database configuration in wba_config.yml to your own database.
+2. Change the hibernate configuration to the appropriate dialect for your db server.
+3. IMPORTANT - remove the hbm2ddl.auto configuration line if you are connecting to an already existing db.
+4. Write your own entity and endpoint resource DAO classes to replace the Person and PersonDAO classes. 
+5. Register your new resource classes in the main application class.
+
+Recompile, redeploy, and start up the server. You should now have a working restful API serving your database data.
+
 That's it - enjoy!
